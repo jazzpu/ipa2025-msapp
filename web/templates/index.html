@@ -7,7 +7,7 @@
   <body>
     <h1>You are calling me from {{ request.remote_addr }}</h1>
 
-    <form action="{{ url_for('add_comment') }}" method="POST">
+    <form action="{{ url_for('add_router') }}" method="POST">
       <input type="text" name="ip" placeholder="IP address"required>
       <input type="text" name="username" placeholder="username" required>
       <input type="text" name="passwd" placeholder="password" required>
@@ -17,10 +17,10 @@
     <div>
       <h2>Guestbook</h2>
       <ul>
-        {% for comment in data %}
+        {% for router in routers %}
           <li>
-            {{ comment.ip }} - {{ comment.username }} : {{ comment.passwd }}
-            <form action="{{ url_for('delete_comment') }}" method="POST" style="display:inline;">
+            {{ router.ip }} - {{ router.username }} : {{ router.password }}
+            <form action="{{ url_for('delete_router', id=router._id|string) }}" method="POST" style="display:inline;">
               <input type="hidden" name="idx" value="{{ loop.index0 }}">
               <button type="submit">Delete</button>
             </form>
