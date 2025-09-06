@@ -10,3 +10,4 @@ this is a github repository about docker composing
 ### If you want to change the username password don't forget to down/up your docker compose
 - docker compose down --volumes
 ![Compose down](images/docker_composedown.png)
+- docker compose up --build --detach

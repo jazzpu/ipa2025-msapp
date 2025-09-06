@@ -1,3 +1,4 @@
+import os
 import time, pika
 
 from bson import json_util
@@ -11,6 +12,8 @@ def scheduler():
     next_run = time.monotonic()
     count = 0
 
+    rabbit_host = os.environ.get("RABBITMQ_HOST", "rabbitmq")
+
     while True:
         now = time.time()
         now_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(now))
@@ -21,7 +24,10 @@ def scheduler():
         try:
             for data in get_router_info():
                 body_bytes = json_util.dumps(data).encode("utf-8")
-                produce("localhost", body_bytes)
+                produce(rabbit_host, body_bytes)
+                ip = data.get("ip") if isinstance(data, dict) else None
+                if ip:
+                    print(f"published job for router {ip}")
         except Exception as e:
             print(e)
             time.sleep(3)
