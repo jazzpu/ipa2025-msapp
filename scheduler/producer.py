@@ -26,5 +26,6 @@ def produce(host, body):
 
     connection.close()
 
+
 if __name__ == "__main__":
     produce("rabbitmq", b"test-message")
