@@ -1,6 +1,7 @@
 import os
 import pika
 
+
 def produce(host, body):
     user = os.environ.get("RABBITMQ_USER", "guest")
     pwd = os.environ.get("RABBITMQ_PASS", "guest")
