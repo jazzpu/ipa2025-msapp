@@ -31,5 +31,6 @@ def consume(host):
     ch.basic_consume(queue="router_jobs", on_message_callback=callback, auto_ack=True)
     ch.start_consuming()
 
+
 if __name__ == '__main__':
     consume("localhost")
