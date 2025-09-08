@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Interfaces for {{ ip }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <h1>Interface status for {{ ip }}</h1>
+
+    {% if status %}
+      <p><strong>Captured:</strong> {{ status.timestamp }}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Interface</th>
+            <th>IP address</th>
+            <th>Protocol</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for intf in status.interfaces %}
+          <tr>
+            <td>{{ intf.interface }}</td>
+            <td>{{ intf.ip_address }}</td>
+            <td>{{ intf.proto }}</td>
+            <td>{{ intf.status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No interface data found yet for this device.</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('index') }}">Back</a></p>
+  </body>
+</html>

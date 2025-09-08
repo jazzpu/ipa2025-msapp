@@ -19,7 +19,11 @@ def get_interfaces(ip, username, password):
         result = conn.send_command("show ip int br", use_textfsm=True)
         conn.disconnect()
 
+    # Log the parsed result for container logs visibility
     print(json.dumps(result, indent=2))
+
+    # Return the structured interfaces list so callers can persist/use it
+    return result
 
 
 if __name__=='__main__':

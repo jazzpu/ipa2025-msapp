@@ -12,6 +12,7 @@ db_name    = os.environ.get("DB_NAME")
 client = MongoClient(mongo_uri)
 db = client[db_name]
 routers = db["routers"]
+interfaces_status = db["interfaces_status"]
 
 @app.route("/", methods=["GET"])
 def index():
@@ -35,6 +36,12 @@ def add_router():
 def delete_router(id):
     routers.delete_one({"_id": ObjectId(id)})
     return redirect("/")
+
+@app.route("/interfaces/<ip>", methods=["GET"])
+def show_interfaces(ip):
+    # Get the latest stored interface status for this router IP
+    latest = interfaces_status.find_one({"router_ip": ip}, sort=[("timestamp", -1)])
+    return render_template("interfaces.html", ip=ip, status=latest)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080)
