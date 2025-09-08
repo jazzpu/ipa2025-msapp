@@ -17,5 +17,5 @@ def get_router_info():
     return list(routers.find())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(get_router_info())

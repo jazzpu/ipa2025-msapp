@@ -15,13 +15,13 @@ def produce(host, body):
     channel.queue_bind(
         queue="router_jobs",
         exchange="jobs",
-        routing_key="check_interfaces"
+        routing_key="check_interfaces",
     )
 
     channel.basic_publish(
         exchange="jobs",
         routing_key="check_interfaces",
-        body=body
+        body=body,
     )
 
     connection.close()
